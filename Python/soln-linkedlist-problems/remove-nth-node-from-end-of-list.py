@@ -13,22 +13,14 @@
 
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        if head is None:
-            return head
-        
-        dummyHead=ListNode(-1)
-        dummyHead.next=head;       
-        slowPtr=dummyHead
-        fastPtr=dummyHead
-
-        i=1
-        while(i<=n+1):
-            fastPtr=fastPtr.next
-            i=i+1
-        
-        while(fastPtr is not None):
-            fastPtr=fastPtr.next
-            slowPtr=slowPtr.next    
-        
-        slowPtr.next=slowPtr.next.next
-        return dummyHead.next
+        fast=slow=head
+        for i in range(n):
+            fast=fast.next
+        if fast is None:
+            return head.next
+        while fast.next:
+            fast=fast.next
+            slow=slow.next
+        slow.next=slow.next.next
+        return head
+    
